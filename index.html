@@ -7,7 +7,7 @@
   <title>RPS-GAME</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" href="images/rps-icon.png" type="image/png">
+<link rel="icon" href="rps-icon.png" type="image/png">
 
 <style>
   body{
@@ -106,14 +106,14 @@
       playGame('rock');
       updateScore();
       " >
-      <img src="images/rock-emoji.png" class="move-icon">
+      <img src="rock-emoji.png" class="move-icon">
     </button>
 
     <button class="paper move-button" onclick="
      playGame('paper');
      updateScore();
     ">
-      <img src="images/paper-emoji.png" class="move-icon">
+      <img src="paper-emoji.png" class="move-icon">
     </button>
 
     <button class="scissors move-button" onclick="
@@ -123,7 +123,7 @@
     updateScore();
 
     ">
-      <img src="images/scissors-emoji.png" class="move-icon">
+      <img src="scissors-emoji.png" class="move-icon">
     </button>
 
     
@@ -259,7 +259,7 @@
         
         document.getElementById('res').textContent=roundResult;
         document.getElementById('movesid').innerHTML=`You
-        <img src="images/${playerMove}-emoji.png" class="move-icon"> - <img src="images/${pcChoise}-emoji.png" class="move-icon"> Computer`;
+        <img src="${playerMove}-emoji.png" class="move-icon"> - <img src="${pcChoise}-emoji.png" class="move-icon"> Computer`;
         
     }
 
