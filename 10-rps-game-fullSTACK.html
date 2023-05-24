@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPS-GAME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="images/rps-icon.png" type="image/png">
+
+<style>
+  body{
+    background-color:rgb(25, 25, 25) ;
+    color: white;
+    font-family: Arial;
+    align-content: center;
+  }  
+  .title{
+    font-size: 30px;
+    font-weight: bold;
+
+
+
+  }
+
+  .move-icon{
+    /* the height will auto resize the widh */
+    height: 50px;
+
+
+
+  }
+  .move-button{
+
+    background-color:transparent;
+    border: 3px solid  white;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    margin-right: 15px;
+    cursor: pointer;
+
+  }
+  .result{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 50px;
+
+  }
+  .score{
+    margin-top: 60px;
+  }
+
+
+  .reset{
+    background-color: rgba(133, 236, 108, 0.822);
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: padding 0.5s , border-radius 0.5s , opacity 0.5s , color 0.1s;
+
+  }
+  .reset:hover{
+    background-color: rgb(209, 209, 28);
+    opacity: 0.8;
+    padding: 8px 60px ;
+    border-radius: 100px;
+
+  }
+  .reset:active{
+    color: red;
+
+  }
+  .container {
+  width: 100%; /* Set the width of the container to 100% */
+  max-width: 960px; /* Optionally, set a maximum width for the container */
+  margin: 0 auto; /* Set the left and right margins to 'auto' */
+}
+.container {
+  /* Existing styles from the previous step */
+
+  background-color: rgb(25, 25, 25); /* Set a background color */
+  padding: 150px; /* Add some padding inside the container */
+  color: white; /* Set the text color */
+}
+
+</style>
+
+
+
+
+
+
+</head>
+<body>
+  <div class="container">
+    <p class="title">
+    Rock Paper Scissors
+  </p>
+
+  <div class="buttn-box">
+    <button class="rock move-button"  onclick="
+      playGame('rock');
+      updateScore();
+      " >
+      <img src="images/rock-emoji.png" class="move-icon">
+    </button>
+
+    <button class="paper move-button" onclick="
+     playGame('paper');
+     updateScore();
+    ">
+      <img src="images/paper-emoji.png" class="move-icon">
+    </button>
+
+    <button class="scissors move-button" onclick="
+    
+    playGame('scissors');
+
+    updateScore();
+
+    ">
+      <img src="images/scissors-emoji.png" class="move-icon">
+    </button>
+
+    
+
+
+    
+
+    <p class="js-result result" id="res"></p>
+    <p class="js-moves" id="movesid"></p>
+    
+
+    <p class="js-score score" onclick="
+    updateScore();
+    
+    " >
+      
+
+    </p>
+    <button class="reset" onclick="
+          score.wins=0;score.loses=0;score.ties=0;
+          localStorage.removeItem('score');
+          updateScore();
+
+        ">
+
+          Reset Score
+        </button>
+  </div>
+  </div>
+  
+  
+
+  
+
+
+
+
+
+
+
+
+  <script>
+    
+    let roundResult= '';
+    
+
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      loses:0,
+      ties:0,
+      wins:0
+    };
+    /* if (!score ){ loses:0,
+      ties:0,
+      wins:0};*/
+    
+      
+
+
+
+      function updateScore(){
+      document.querySelector('.js-score')
+          .innerHTML  =`Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties}`;
+
+      }
+
+      let toString=updateScore().toString();
+
+
+    function playGame(playerMove){
+
+       pcChoise=pickComputerMove();
+  
+      console.log(pcChoise);
+      if(playerMove==='scissors'){
+        if (pcChoise==='Rock'){
+          
+       roundResult='You lose.';
+       score.loses++;
+          
+      
+      }else if (pcChoise==='paper'){
+       roundResult='You win.';
+        score.wins++;
+      }else if (pcChoise==='scissors'){
+        roundResult='Tie.';
+        score.ties++;
+        }
+        //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
+        
+      }
+      else if (playerMove==='rock'){
+          
+          pcChoise=pickComputerMove();
+          
+          console.log(pcChoise);
+          if (pcChoise==='Rock'){
+            
+            roundResult='Tie';
+            score.ties++;
+        
+          }else if (pcChoise==='paper'){
+            roundResult='You lose.';
+            score.loses++;
+          }else if (pcChoise==='scissors'){
+            roundResult='You win.';
+            score.wins++;
+          }
+          //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
+
+
+      }else if (playerMove==='paper'){
+
+          pcChoise=pickComputerMove();
+          console.log(pcChoise);
+          if (pcChoise==='Rock'){
+            
+            roundResult='You win.';
+            score.wins++;
+        
+          }else if (pcChoise==='paper'){
+            roundResult='Tie.';
+            score.ties++;
+          }else if (pcChoise==='scissors'){
+            roundResult='You lose.';
+            score.loses++;
+          }
+          
+          //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
+          
+      }
+        
+        localStorage.setItem('score', JSON.stringify(score));
+        
+        document.getElementById('res').textContent=roundResult;
+        document.getElementById('movesid').innerHTML=`You
+        <img src="images/${playerMove}-emoji.png" class="move-icon"> - <img src="images/${pcChoise}-emoji.png" class="move-icon"> Computer`;
+        
+    }
+
+
+    function pickComputerMove(){
+        pc = Math.random();
+      console.log(pc);
+      if (pc>=0 && pc <=1/3 ){
+        pcChoise = 'Rock';
+        
+      }else if (pc >=1/3 && pc <=2/3){
+        pcChoise='paper';
+        
+      }else if (pc >=2/3 && pc <= 1 ){
+        pcChoise='scissors';
+        
+      }
+
+      return pcChoise;
+    }
+
+
+    
+
+
+  </script>
+
+
+</body>
+</html>
