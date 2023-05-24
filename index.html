@@ -198,7 +198,7 @@
   
       console.log(pcChoise);
       if(playerMove==='scissors'){
-        if (pcChoise==='Rock'){
+        if (pcChoise==='rock'){
           
        roundResult='You lose.';
        score.loses++;
@@ -219,7 +219,7 @@
           pcChoise=pickComputerMove();
           
           console.log(pcChoise);
-          if (pcChoise==='Rock'){
+          if (pcChoise==='rock'){
             
             roundResult='Tie';
             score.ties++;
@@ -238,7 +238,7 @@
 
           pcChoise=pickComputerMove();
           console.log(pcChoise);
-          if (pcChoise==='Rock'){
+          if (pcChoise==='rock'){
             
             roundResult='You win.';
             score.wins++;
@@ -268,7 +268,7 @@
         pc = Math.random();
       console.log(pc);
       if (pc>=0 && pc <=1/3 ){
-        pcChoise = 'Rock';
+        pcChoise = 'rock';
         
       }else if (pc >=1/3 && pc <=2/3){
         pcChoise='paper';
