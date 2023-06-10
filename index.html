@@ -11,80 +11,86 @@
 
 <style>
   body{
-    background-color:rgb(25, 25, 25) ;
-    color: white;
-    font-family: Arial;
-    align-content: center;
-  }  
-  .title{
-    font-size: 30px;
-    font-weight: bold;
+  background-color:rgb(25, 25, 25) ;
+  color: white;
+  font-family: Arial;
+  align-content: center;
+}  
+.title{
+  font-size: 30px;
+  font-weight: bold;
 
 
 
-  }
+}
 
-  .move-icon{
-    /* the height will auto resize the widh */
-    height: 50px;
-
-
-
-  }
-  .move-button{
-
-    background-color:transparent;
-    border: 3px solid  white;
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    margin-right: 15px;
-    cursor: pointer;
-
-  }
-  .result{
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 50px;
-
-  }
-  .score{
-    margin-top: 60px;
-  }
+.move-icon{
+  /* the height will auto resize the widh */
+  height: 50px;
 
 
-  .reset{
-    background-color: rgba(133, 236, 108, 0.822);
-    border: none;
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: padding 0.5s , border-radius 0.5s , opacity 0.5s , color 0.1s;
 
-  }
-  .reset:hover{
-    background-color: rgb(209, 209, 28);
-    opacity: 0.8;
-    padding: 8px 60px ;
-    border-radius: 100px;
+}
+.move-button{
 
-  }
-  .reset:active{
-    color: red;
+  background-color:transparent;
+  border: 3px solid  white;
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  margin-right: 15px;
+  cursor: pointer;
 
-  }
-  .container {
-  width: 100%; /* Set the width of the container to 100% */
-  max-width: 960px; /* Optionally, set a maximum width for the container */
-  margin: 0 auto; /* Set the left and right margins to 'auto' */
+}
+.result{
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 50px;
+
+}
+.score{
+  margin-top: 60px;
+}
+
+
+.reset,.auto-play-btn{
+  background-color: rgba(133, 236, 108, 0.822);
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: padding 0.5s , border-radius 0.5s , opacity 0.5s , color 0.1s;
+
+}
+.reset:hover,.auto-play-btn:hover{
+  background-color: rgb(209, 209, 28);
+  opacity: 0.8;
+  padding: 8px 60px ;
+  border-radius: 100px;
+
+}
+.reset:active,.auto-play-btn:active{
+  color: red;
+
 }
 .container {
-  /* Existing styles from the previous step */
+width: 100%; /* Set the width of the container to 100% */
+max-width: 960px; /* Optionally, set a maximum width for the container */
+margin: 0 auto; /* Set the left and right margins to 'auto' */
+}
+.container {
+/* Existing styles from the previous step */
 
-  background-color: rgb(25, 25, 25); /* Set a background color */
-  padding: 150px; /* Add some padding inside the container */
-  color: white; /* Set the text color */
+background-color: rgb(25, 25, 25); /* Set a background color */
+padding: 150px; /* Add some padding inside the container */
+color: white; /* Set the text color */
+}
+.buttonIsOn{
+  background-color: red;
+  color:greenyellow;
+
+
 }
 
 </style>
@@ -106,14 +112,14 @@
       playGame('rock');
       updateScore();
       " >
-      <img src="rock-emoji.png" class="move-icon">
+      <img src="images/rock-emoji.png" class="move-icon">
     </button>
 
     <button class="paper move-button" onclick="
      playGame('paper');
      updateScore();
     ">
-      <img src="paper-emoji.png" class="move-icon">
+      <img src="images/paper-emoji.png" class="move-icon">
     </button>
 
     <button class="scissors move-button" onclick="
@@ -123,7 +129,7 @@
     updateScore();
 
     ">
-      <img src="scissors-emoji.png" class="move-icon">
+      <img src="images/scissors-emoji.png" class="move-icon">
     </button>
 
     
@@ -136,7 +142,7 @@
     
 
     <p class="js-score score" onclick="
-    updateScore();
+    updateScore(); 
     
     " >
       
@@ -151,6 +157,10 @@
 
           Reset Score
         </button>
+    <button class="auto-play-btn" onclick="
+      autoPlay();
+      
+      ">Auto-Play</button>    
   </div>
   </div>
   
@@ -167,7 +177,7 @@
 
   <script>
     
-    let roundResult= '';
+ let roundResult= '';
     
 
     let score = JSON.parse(localStorage.getItem('score')) || {
@@ -189,98 +199,95 @@
 
       }
 
-      let toString=updateScore().toString();
-
-
-    function playGame(playerMove){
-
-       pcChoise=pickComputerMove();
-  
-      console.log(pcChoise);
-      if(playerMove==='scissors'){
-        if (pcChoise==='rock'){
-          
-       roundResult='You lose.';
-       score.loses++;
-          
       
-      }else if (pcChoise==='paper'){
-       roundResult='You win.';
-        score.wins++;
-      }else if (pcChoise==='scissors'){
-        roundResult='Tie.';
-        score.ties++;
-        }
-        //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
-        
-      }
-      else if (playerMove==='rock'){
-          
-          pcChoise=pickComputerMove();
-          
-          console.log(pcChoise);
-          if (pcChoise==='rock'){
-            
-            roundResult='Tie';
-            score.ties++;
-        
-          }else if (pcChoise==='paper'){
-            roundResult='You lose.';
-            score.loses++;
-          }else if (pcChoise==='scissors'){
-            roundResult='You win.';
-            score.wins++;
-          }
-          //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
+let isAutoPlaying = false;
+let intervalId;
+function autoPlay() {
+  if (!isAutoPlaying) {
+    intervalId = setInterval(function() {
+      const playerMove = pickComputerMove();
+      playGame(playerMove);
+      
+    }, 1000);
+    let buttonElement = document.querySelector('.auto-play-btn');
+    buttonElement.classList.add('buttonIsOn');
+    isAutoPlaying = true;
+  } else {
+    clearInterval(intervalId);
+    let buttonElement = document.querySelector('.auto-play-btn');
+    buttonElement.classList.remove('buttonIsOn');
+    isAutoPlaying = false;
+  }
+}
 
+function playGame(playerMove) {
+  pcChoise = pickComputerMove();
 
-      }else if (playerMove==='paper'){
-
-          pcChoise=pickComputerMove();
-          console.log(pcChoise);
-          if (pcChoise==='rock'){
-            
-            roundResult='You win.';
-            score.wins++;
-        
-          }else if (pcChoise==='paper'){
-            roundResult='Tie.';
-            score.ties++;
-          }else if (pcChoise==='scissors'){
-            roundResult='You lose.';
-            score.loses++;
-          }
-          
-          //alert(`You picked ${playerMove}. Computer picked ${pcChoise}.${roundResult} \n Wins: ${score.wins} , Losses: ${score.loses} , Ties: ${score.ties} `);
-          
-      }
-        
-        localStorage.setItem('score', JSON.stringify(score));
-        
-        document.getElementById('res').textContent=roundResult;
-        document.getElementById('movesid').innerHTML=`You
-        <img src="${playerMove}-emoji.png" class="move-icon"> - <img src="${pcChoise}-emoji.png" class="move-icon"> Computer`;
-        
+  console.log(pcChoise);
+  if (playerMove === 'scissors') {
+    if (pcChoise === 'rock') {
+      roundResult = 'You lose.';
+      score.loses++;
+    } else if (pcChoise === 'paper') {
+      roundResult = 'You win.';
+      score.wins++;
+    } else if (pcChoise === 'scissors') {
+      roundResult = 'Tie.';
+      score.ties++;
     }
-
-
-    function pickComputerMove(){
-        pc = Math.random();
-      console.log(pc);
-      if (pc>=0 && pc <=1/3 ){
-        pcChoise = 'rock';
-        
-      }else if (pc >=1/3 && pc <=2/3){
-        pcChoise='paper';
-        
-      }else if (pc >=2/3 && pc <= 1 ){
-        pcChoise='scissors';
-        
-      }
-
-      return pcChoise;
+  } else if (playerMove === 'rock') {
+    pcChoise = pickComputerMove();
+    console.log(pcChoise);
+    if (pcChoise === 'rock') {
+      roundResult = 'Tie';
+      score.ties++;
+    } else if (pcChoise === 'paper') {
+      roundResult = 'You lose.';
+      score.loses++;
+    } else if (pcChoise === 'scissors') {
+      roundResult = 'You win.';
+      score.wins++;
     }
+  } else if (playerMove === 'paper') {
+    pcChoise = pickComputerMove();
+    console.log(pcChoise);
+    if (pcChoise === 'rock') {
+      roundResult = 'You win.';
+      score.wins++;
+    } else if (pcChoise === 'paper') {
+      roundResult = 'Tie.';
+      score.ties++;
+    } else if (pcChoise === 'scissors') {
+      roundResult = 'You lose.';
+      score.loses++;
+    }
+  }
 
+  localStorage.setItem('score', JSON.stringify(score));
+
+  document.getElementById('res').textContent = roundResult;
+  document.getElementById('movesid').innerHTML = `You
+        <img src="images/${playerMove}-emoji.png" class="move-icon"> - <img src="images/${pcChoise}-emoji.png" class="move-icon"> Computer`;
+
+  updateScore(); // Move the updateScore() call here
+}
+
+
+
+function pickComputerMove() {
+  const randomNum = Math.random();
+
+  if (randomNum >= 0 && randomNum <= 1 / 3) {
+    return 'rock';
+  } else if (randomNum > 1 / 3 && randomNum <= 2 / 3) {
+    return 'paper';
+  } else {
+    return 'scissors';
+  }
+}
+
+
+    
 
     
 
